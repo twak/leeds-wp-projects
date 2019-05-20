@@ -1,12 +1,12 @@
 <?php
 /**
  * Plugin Name: Projects
- * Plugin URI:  twak.org
+ * Plugin URI:  https://github.com/twak/leeds-wp-projects
  * Description: twak's project page plugin
  * Version:     0.0.½
  * Author:      (c) twak, University of Leeds
  * Author URI:  http://twak.org
- * License:     Apache
+ * License:     Apache-2.0
  * 
  * @package TK_News
  */
