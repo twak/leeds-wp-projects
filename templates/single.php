@@ -40,16 +40,26 @@ if ( have_posts() ) {
 
         <h1 class="heading-underline"><?php the_title(); ?></h1>
 
-
+        <div class ="row">
         <?php
 
-            $value = get_field( 'conf' );
+
+        $value = get_field('whiterose');
+        if ($value) {
+            echo("<div class='col-sm-2'><a href=" . $value . "><img width='80em' src='" . plugins_url("leeds-wp-projects/resources/whiterose_pdf.svg") . "'/></a></div> ");
+        }
+
+        echo ("<div class='col-sm-10'>");
+
+        $value = get_field( 'conf' );
             if( $value )
-                echo( '<h3 style="text-align: center">'.$value.'</h3>' );
+                echo( '<h3 style="text-align: left">'.$value.'</h3>' );
 
             $value = get_field( 'authors' );
             if( $value )
-                echo( '<h3 style="text-align: center">'.$value.'</h3>' );
+                echo( '<h3 style="text-align: left">'.$value.'</h3>' );
+
+        echo ("</div></div><br/>");
 
         if ( has_post_thumbnail() ) {
             ?>
@@ -57,8 +67,8 @@ if ( have_posts() ) {
             <img src="<?php the_post_thumbnail_url( 'large' ); ?>">
             </div>
             <?php
-        }
-        ?>
+        }?>
+
 
 		<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 			<div class="jadu-cms">

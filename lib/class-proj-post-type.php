@@ -11,6 +11,9 @@ if (!class_exists('Proj_Post_Type')) {
 
             add_filter( 'single_template', array( $this, 'single_template' ) );
             add_filter( 'archive_template', array( $this, 'archive_template' ) );
+
+            if (!has_image_size( 'sq512') )
+                add_image_size( 'sq512', 512, 512, true );
         }
 
         public function archive_template( $archive_template ) {

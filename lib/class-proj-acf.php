@@ -68,6 +68,22 @@ if ( ! class_exists( 'Proj_Profiles_ACF' ) ) {
                         'append' => '',
                         'maxlength' => '',
                     ),
+                    array (
+                        'key' => 'field_5ce3fbc848b02',
+                        'label' => 'white rose',
+                        'name' => 'whiterose',
+                        'type' => 'url',
+                        'instructions' => 'white rose pdf url',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array (
+                            'width' => '',
+                            'class' => '',
+                            'id' => '',
+                        ),
+                        'default_value' => '',
+                        'placeholder' => 'http://eprints.whiterose.ac.uk/138256/1/KellyGuerreroEtAl_FrankenGAN_SigAsia2018.pdf',
+                    ),
                 ),
                 'location' => array (
                     array (
