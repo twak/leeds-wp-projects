@@ -84,6 +84,34 @@ if ( ! class_exists( 'Proj_Profiles_ACF' ) ) {
                         'default_value' => '',
                         'placeholder' => 'http://eprints.whiterose.ac.uk/138256/1/KellyGuerreroEtAl_FrankenGAN_SigAsia2018.pdf',
                     ),
+                    array (
+                        'key' => 'field_5ce43b662fb4f',
+                        'label' => 'author',
+                        'name' => 'author',
+                        'type' => 'relationship',
+                        'instructions' => 'Which profiles should be shown below this project page? (click \'select post\' type then \'profile\')',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array (
+                            'width' => '',
+                            'class' => '',
+                            'id' => '',
+                        ),
+                        'post_type' => array (
+                            0 => 'tk_profiles',
+                        ),
+                        'taxonomy' => array (
+                        ),
+                        'filters' => array (
+                            0 => 'search',
+                            1 => 'post_type',
+                            2 => 'taxonomy',
+                        ),
+                        'elements' => '',
+                        'min' => '',
+                        'max' => '',
+                        'return_format' => 'object',
+                    ),
                 ),
                 'location' => array (
                     array (

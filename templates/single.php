@@ -79,92 +79,30 @@ if ( have_posts() ) {
 	</div>
 		<?php
 	}
-}
+} ?>
 
-if ( get_field( 'tk_profiles_single_settings_related', 'option' ) ) {
-	// Related profiles.
-	$current_page_id_array = array( get_the_ID() );
-	$profiles_image_flag   = 0;
-	$terms                 = get_object_term_cache(  get_the_ID(), 'tk_profile_category' );
-	if ( false === $terms ) {
-		$terms = wp_get_object_terms(  get_the_ID(), 'tk_profile_category' );
-	}
-	if ( ! is_wp_error( $terms ) ) {
-		$term_ids = wp_list_pluck( $terms, 'term_id' );
-		$args     = array(
-			'post_type'      => 'tk_profiles',
-			'posts_per_page' => 3,
-			'post__not_in'   => $current_page_id_array,
-			'tax_query'      => array(
-				array(
-					'taxonomy' => 'tk_profile_category',
-					'terms'    => $term_ids,
-				),
-			),
-		);
-		$query    = new WP_Query( $args );
-		if ( $query->have_posts() ) {
-			?>
 
-</div><!-- ./wrapper-lg -->
-	<div class="skin-bg-module island-lg">
-		<div class="wrapper-sm wrapper-pd">
-			<div class="divider-header">
-				<h4 class="divider-header-heading divider-header-heading-underline">Related Profiles</h4>
-			</div>
-			<div class="row equalize">
-			<?php
-			while ( $query->have_posts() ) {
-				$query->the_post();
-				if ( has_post_thumbnail() ) {
-					$profiles_image_flag = 1;
-				}
-			}
-			$query->rewind_posts();
-			while ( $query->have_posts() ) {
-				$query->the_post();
-				$post_id = get_the_ID();
-				$profile_link = apply_filters( 'tk_profile_url', '', $post_id );
-				?>
-				<div class="col-sm-4">
-					<div class="card-flat card-stacked-sm skin-bg-white skin-bd-b equalize-inner">
-				<?php
-				if ( $profiles_image_flag ) {
-					?>
-					<div class="card-img">
-						<div class="rs-img" <?php if ( has_post_thumbnail() ) : ?> style="background-image: url('<?php the_post_thumbnail_url(); ?>')" <?php endif; ?>>
-							<a href="<?php echo esc_url( $profile_link ); ?>">
-								<img src="<?php the_post_thumbnail_url( 'medium' ); ?>" alt="<?php the_title_attribute(); ?>">
-							</a>
-						</div>
-					</div>
-					<?php
-				}
-				?>
-						<div class="card-content">
-							<h3 class="heading-link text-center">
-								<a href="<?php echo esc_url( $profile_link ); ?>"><?php the_title(); ?></a>
-							</h3>
-				<?php
-				if ( get_field( 'tk_profiles_job_title' ) ) {
-					?>
-						<p class="heading-related text-center"><?php the_field( 'tk_profiles_job_title' ); ?></p>
-					<?php
-				}
-				?>
-						</div>
-					</div>
-				</div>
-				<?php
-			}
-			wp_reset_postdata();
-			?>
-			</div>
-		</div>
-	</div>
-	<div class="wrapper-lg">
-			<?php
-		}
-	}
-}
-get_footer();
+        <?php
+
+        $posts = get_field('author');
+
+        echo("<div class='row'>");
+//        load_template( apply_filters( 'tk_profiles_template', 'cards', 'header' ), false );
+
+        if( $posts ):
+                echo ("<h2>Authors from the VCG</h2>");
+                foreach( $posts as $post):
+                    setup_postdata($post);
+                    load_template( apply_filters( 'tk_profiles_template', 'cards', 'row' ), false );
+                endforeach;
+
+            wp_reset_postdata();
+        endif;
+
+//        load_template( apply_filters( 'tk_profiles_template', 'cards', 'footer' ), false );
+        echo("</div>");
+
+        ?>
+
+        <?php
+        get_footer(); ?>

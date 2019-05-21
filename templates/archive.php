@@ -74,8 +74,9 @@ if ($loop->have_posts()) {
                         ?>
 
                         <div style="max-height:10em">
-                            <div class="rs-img" style="max-height:14em;">
+                            <div class="rs-img"></div>
                             </div>
+
 
                             <?php
                             }
