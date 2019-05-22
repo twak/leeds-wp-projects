@@ -55,7 +55,7 @@ if ( have_posts() ) {
             if( $value )
                 echo( '<h3 style="text-align: left">'.$value.'</h3>' );
 
-            $value = get_field( 'authors' );
+            $value = get_field( 'all_authors' );
             if( $value )
                 echo( '<h3 style="text-align: left">'.$value.'</h3>' );
 
@@ -63,8 +63,8 @@ if ( have_posts() ) {
 
         if ( has_post_thumbnail() ) {
             ?>
-            <div style="display: flex; justify-content: center;">
-            <img src="<?php the_post_thumbnail_url( 'large' ); ?>">
+            <div style="justify-content: center; ">
+            <img style="width:100%;" src="<?php the_post_thumbnail_url( 'large' ); ?>">
             </div>
             <?php
         }?>
@@ -84,13 +84,13 @@ if ( have_posts() ) {
 
         <?php
 
-        $posts = get_field('author');
+        $posts = get_field('authors');
 
         echo("<div class='row'>");
 //        load_template( apply_filters( 'tk_profiles_template', 'cards', 'header' ), false );
 
         if( $posts ):
-                echo ("<h2>Authors from the VCG</h2>");
+                echo ("<h2>Authors from VCG</h2>");
                 foreach( $posts as $post):
                     setup_postdata($post);
                     load_template( apply_filters( 'tk_profiles_template', 'cards', 'row' ), false );
