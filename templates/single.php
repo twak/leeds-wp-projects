@@ -36,7 +36,8 @@ if ( have_posts() ) {
 	while ( have_posts() ) {
 		the_post();
 		?>
-	<div class="wrapper-xs wrapper-pd">
+<div class="main wrapper-lg" style="margin-top:1em">
+	<div class="wrapper-xs-pd" style="margin-right: 1em; margin-left:1em">
 
         <h1 class="heading-underline"><?php the_title(); ?></h1>
 
@@ -64,7 +65,8 @@ if ( have_posts() ) {
         if ( has_post_thumbnail() ) {
             ?>
             <div style="justify-content: center; ">
-            <img style="width:100%;" src="<?php the_post_thumbnail_url( 'large' ); ?>">
+            <img style="width:100%; margin-bottom: 1em" src="<?php the_post_thumbnail_url( 'large' ); ?>">
+
             </div>
             <?php
         }?>
@@ -77,6 +79,7 @@ if ( have_posts() ) {
 			</div>
 		</div>
 	</div>
+    </div>
 		<?php
 	}
 } ?>
@@ -90,11 +93,17 @@ if ( have_posts() ) {
 //        load_template( apply_filters( 'tk_profiles_template', 'cards', 'header' ), false );
 
         if( $posts ):
+        ?>
+    <div class="main wrapper-lg" style="margin-top:1em">
+        <div class="wrapper-xs-pd" style="margin-right: 1em; margin-left:1em">
+            <?php
                 echo ("<h2>Authors from VCG</h2>");
                 foreach( $posts as $post):
                     setup_postdata($post);
                     load_template( apply_filters( 'tk_profiles_template', 'cards', 'row' ), false );
                 endforeach;
+                ?> </div></div><?php
+
 
             wp_reset_postdata();
         endif;

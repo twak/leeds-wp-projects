@@ -44,7 +44,7 @@ if ( ! class_exists( 'Proj_Profiles_ACF' ) ) {
                             'id' => '',
                         ),
                         'default_value' => '',
-                        'placeholder' => 'siggleeds',
+                        'placeholder' => 'siggbellybuttonfluff',
                         'prepend' => '',
                         'append' => '',
                         'maxlength' => '',
@@ -52,7 +52,7 @@ if ( ! class_exists( 'Proj_Profiles_ACF' ) ) {
                     array (
                         'key' => 'field_5cdeb78b22e54',
                         'label' => 'Authors',
-                        'name' => 'authors',
+                        'name' => 'all_authors',
                         'type' => 'text',
                         'instructions' => '',
                         'required' => 0,
@@ -86,8 +86,8 @@ if ( ! class_exists( 'Proj_Profiles_ACF' ) ) {
                     ),
                     array (
                         'key' => 'field_5ce43b662fb4f',
-                        'label' => 'author',
-                        'name' => 'author',
+                        'label' => 'authors',
+                        'name' => 'authors',
                         'type' => 'relationship',
                         'instructions' => 'Which profiles should be shown below this project page? (click \'select post\' type then \'profile\')',
                         'required' => 0,

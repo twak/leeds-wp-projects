@@ -63,11 +63,9 @@ if ($loop->have_posts()) {
                         if (has_post_thumbnail()) {
                             // Check if Thumbnail exists.
                             ?>
-
                             <div>
                                 <img width="140em" src='<?php the_post_thumbnail_url('sq512'); ?>'
                                      alt='"<?php echo esc_attr($name); ?>"'/>
-
                             </div>
                             <?php
                         } else {
@@ -88,7 +86,7 @@ if ($loop->have_posts()) {
                         <h2 style="font-family: freight-display-pro; margin-top:0.5em"><?php the_title(); ?></h2>
 
                         <?php
-                        $value = get_field('authors');
+                        $value = get_field('all_authors');
                         if ($value)
                             echo('<h3 style="text-align: left">' . $value . '</h3>');
                         ?>
