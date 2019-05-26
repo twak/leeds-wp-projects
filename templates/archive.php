@@ -57,14 +57,14 @@ if ($loop->have_posts()) {
 
         <div class="row card-flat  skin-bd-b " style="min-height:11em;">
             <div>
-                <div class="col-sm-2">
+                <div class="col-xs-4 col-sm-2">
                     <a href="<?php echo esc_url($profile_link); ?>">
                         <?php
                         if (has_post_thumbnail()) {
                             // Check if Thumbnail exists.
                             ?>
                             <div>
-                                <img width="140em" src='<?php the_post_thumbnail_url('sq512'); ?>'
+                                <img  style='  display: block; margin-left: auto;  margin-right: auto;' src='<?php the_post_thumbnail_url('sq512'); ?>'
                                      alt='"<?php echo esc_attr($name); ?>"'/>
                             </div>
                             <?php
@@ -81,7 +81,7 @@ if ($loop->have_posts()) {
                             ?>
                     </a>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-xs-8 col-sm-2">
                     <a href="<?php echo esc_url($profile_link); ?>">
                         <h2 style="font-family: freight-display-pro; margin-top:0.5em"><?php the_title(); ?></h2>
 

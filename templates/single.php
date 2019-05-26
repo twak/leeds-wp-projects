@@ -47,7 +47,7 @@ if ( have_posts() ) {
 
         $value = get_field('whiterose');
         if ($value) {
-            echo("<div class='col-sm-2'><a href=" . $value . "><img width='80em' src='" . plugins_url("leeds-wp-projects/resources/whiterose_pdf.svg") . "'/></a></div> ");
+            echo("<div class='col-sm-2'><a href=" . $value . "><img width='80em' style='  display: block; margin-left: auto;  margin-right: auto;' src='" . plugins_url("leeds-wp-projects/resources/whiterose_pdf.svg") . "'/></a></div> ");
         }
 
         echo ("<div class='col-sm-10'>");
@@ -62,10 +62,11 @@ if ( have_posts() ) {
 
         echo ("</div></div><br/>");
 
+
         if ( has_post_thumbnail() ) {
             ?>
             <div style="justify-content: center; ">
-            <img style="width:100%; margin-bottom: 1em" src="<?php the_post_thumbnail_url( 'large' ); ?>">
+            <img style="width:100%; margin-bottom: 1em" src="<?php the_post_thumbnail_url( 'full' ); ?>">
 
             </div>
             <?php
@@ -86,23 +87,44 @@ if ( have_posts() ) {
 
 
         <?php
+        if( have_rows('bibtex_papers') && get_field('show_papers') ) {
+?>
+        <div class='row jadu-cms'>
+
+<!--        <div class="main wrapper-lg" style="margin-top:1em">-->
+            <div class="wrapper-xs-pd" style="margin-right: 1.4em; margin-left:1.4em">
+            <h2>Papers</h2>
+            <?php
+
+            $cite="";
+
+            // loop through the rows of data
+            while (have_rows('bibtex_papers')) {
+                the_row();
+                // display a sub field value
+                $cite .= get_sub_field('bibtex_id');
+                $cite .= ",";
+            }
+            echo (papercite_cb("[bibtex key=" . $cite . "sort=year order=desc]") );
+            ?>
+            </div></div> <?php
+        }
 
         $posts = get_field('authors');
+        echo("<div class='row jadu-cms'>");
 
-        echo("<div class='row'>");
-//        load_template( apply_filters( 'tk_profiles_template', 'cards', 'header' ), false );
-
-        if( $posts ):
+        if( $posts && get_field('show_authors')):
         ?>
-    <div class="main wrapper-lg" style="margin-top:1em">
+<!--    <div class="wrapper-lg" style="margin-top:1em">-->
         <div class="wrapper-xs-pd" style="margin-right: 1em; margin-left:1em">
             <?php
-                echo ("<h2>Authors from VCG</h2>");
+                echo ("<h2 style='margin-right: 0.4em; margin-left:0.4em'>Authors from VCG</h2>");
+
                 foreach( $posts as $post):
                     setup_postdata($post);
                     load_template( apply_filters( 'tk_profiles_template', 'cards', 'row' ), false );
                 endforeach;
-                ?> </div></div><?php
+                ?> </div><?php
 
 
             wp_reset_postdata();

@@ -8,7 +8,6 @@ if (!class_exists('Proj_Post_Type')) {
         public function __construct()
         {
             add_action( 'acf/init', array( $this, 'create_post_type' ), 9 );
-
             add_filter( 'single_template', array( $this, 'single_template' ) );
             add_filter( 'archive_template', array( $this, 'archive_template' ) );
 
