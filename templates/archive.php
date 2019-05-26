@@ -55,7 +55,7 @@ if ($loop->have_posts()) {
 
         <!--        <div class="card-flat card-stacked-xs skin-bd-b skin-box-module">-->
 
-        <div class="row card-flat  skin-bd-b " style="min-height:11em;">
+        <div class="row card-flat  skin-bd-b skin-box-module " style="min-height:11em;">
             <div>
                 <div class="col-xs-4 col-sm-2">
                     <a href="<?php echo esc_url($profile_link); ?>">
@@ -81,7 +81,7 @@ if ($loop->have_posts()) {
                             ?>
                     </a>
                 </div>
-                <div class="col-xs-8 col-sm-2">
+                <div class="col-xs-8 col-sm-10">
                     <a href="<?php echo esc_url($profile_link); ?>">
                         <h2 style="font-family: freight-display-pro; margin-top:0.5em"><?php the_title(); ?></h2>
 
