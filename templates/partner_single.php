@@ -18,20 +18,13 @@ if ( $external_url !== $permalink ) {
 
 get_header();
 
-if ( get_field( 'tk_profiles_page_settings_show_breadcrumb', 'option' ) ) {
-	// Custom title.
-	$profiles_page_title = ( get_field( 'tk_profiles_page_settings_title', 'option' ) ? : 'Profiles' );
-	$profiles_page_url   = get_post_type_archive_link( 'tk_profiles' );
-	?>
-	<div class="tk-profiles-breadcrumb-wrapper">
-		<ul class="tk-profiles-breadcrumb">
-			<li><a href="<?php echo esc_url( site_url() ); ?>">Home</a></li>
-			<li><a href="<?php echo esc_url( $profiles_page_url ); ?>"><?php echo esc_html( $profiles_page_title ); ?></a></li>
-			<li><?php the_title(); ?></li>
-		</ul>
-	</div>
-	<?php
-}
+?>
+
+<!--<h2> --><?php //the_title() ?><!-- </h2>-->
+
+<?php
+
+
 if ( have_posts() ) {
 	while ( have_posts() ) {
 		the_post();
@@ -39,41 +32,21 @@ if ( have_posts() ) {
 <div class="main wrapper-lg" style="margin-top:1em">
 	<div class="wrapper-xs-pd" style="margin-right: 1em; margin-left:1em">
 
-        <h1 class="heading-underline"><?php the_title(); ?></h1>
-
-        <div class ="row">
         <?php
-
-
-        $value = get_field('whiterose');
-        if ($value) {
-            echo("<div class='col-sm-2'><a href=" . $value . "><img width='80em' style='  display: block; margin-left: auto;  margin-right: auto;' src='" . plugins_url("leeds-wp-projects/resources/whiterose_pdf.svg") . "'/></a></div> ");
-        }
-
-        echo ("<div class='col-sm-10'>");
-
-        $value = get_field( 'conf' );
-            if( $value )
-                echo( '<h3 style="text-align: left">'.$value.'</h3>' );
-
-            $value = get_field( 'all_authors' );
-            if( $value )
-                echo( '<h3 style="text-align: left">'.$value.'</h3>' );
-
-        echo ("</div></div><br/>");
-
 
         if ( has_post_thumbnail() && tk_display_featured_image() ) {
             ?>
             <div style="justify-content: center; ">
-            <img style="width:100%; margin-bottom: 1em" src="<?php the_post_thumbnail_url( 'full' ); ?>">
+            <img style="margin-bottom: 1em;  display: block;  margin-left: auto; margin-right: auto;" src="<?php the_post_thumbnail_url( 'large' ); ?>">
 
             </div>
             <?php
         }?>
 
+            <h1 class="heading-underline"><?php the_title(); ?></h1>
 
-		<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+
+            <div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 			<div class="jadu-cms">
 				<?php the_content(); ?>
 				<?php do_action( 'tk_profiles_after_content', $profile_id, get_the_title() ); ?>
@@ -111,10 +84,9 @@ if ( have_posts() ) {
         }
 
         $posts = get_field('authors');
-
+        echo("<div class='row jadu-cms'>");
 
         if( $posts && get_field('show_authors')):
-            echo("<div class='row jadu-cms'>");
         ?>
 <!--    <div class="wrapper-lg" style="margin-top:1em">-->
         <div class="wrapper-xs-pd" style="margin-right: 1em; margin-left:1em">
@@ -129,39 +101,10 @@ if ( have_posts() ) {
 
 
             wp_reset_postdata();
-            echo("</div>");
         endif;
 
 //        load_template( apply_filters( 'tk_profiles_template', 'cards', 'footer' ), false );
-
-
-        $posts = get_field('partners');
-
-
-        if( $posts && get_field('show_partners')):
-//            echo("<div class='row jadu-cms'>");
-            ?>
-            <!--    <div class="wrapper-lg" style="margin-top:1em">-->
-            <h2 style='margin-right: 0.4em; margin-left:0.4em'>Partners</h2>
-            <div style='margin:4em; margin-top:128px; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; align-content: flex-start; align-items: flex-start;'>
-
-            <?php
-
-
-            foreach( $posts as $post):
-                setup_postdata($post);
-                twak_inner_partner();
-
-            endforeach;
-            ?> </div><?php
-
-
-            wp_reset_postdata();
-        endif;
-
-        //        load_template( apply_filters( 'tk_profiles_template', 'cards', 'footer' ), false );
         echo("</div>");
-
 
         ?>
 
