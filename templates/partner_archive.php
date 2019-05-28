@@ -30,7 +30,6 @@ $display = (get_field('tk_profile_display', 'option') ?: 'all');
 <?php
 
 // Get layout.
-$template = get_field('tk_profiles_page_settings_template', 'option');
 
 // Collect query args.
 $args = array(

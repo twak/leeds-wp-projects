@@ -97,7 +97,7 @@ function twak_inner_partner()
             if (has_post_thumbnail()) {
                 // Check if Thumbnail exists.
                 ?>
-                <img style="position: relative; top: 50%; transform: translateY(-50%);"
+                <img style="border:none; position: relative; top: 50%; transform: translateY(-50%);"
                      src='<?php the_post_thumbnail_url('sq512'); ?>'
                      alt='"<?php echo esc_attr($name); ?>"'/>
                 <?php
@@ -116,5 +116,34 @@ function twak_inner_partner()
     </div>
     <?php
 }
+
+function shortcode_all_partners() {
+// Collect query args.
+    $args = array(
+        'post_type' => 'partners',
+        'posts_per_page' => -1,
+        'order' => 'ASC',
+    );
+
+// New query.
+    $loop = new WP_Query($args);
+
+    if ($loop->have_posts()) {
+
+        echo ("<div style='margin:4em; margin-top:90px; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; align-content: flex-start; align-items: flex-start;'>");
+
+// Page is not split by category.
+        while ($loop->have_posts()) {
+
+            $loop->the_post();
+            twak_inner_partner();
+        }
+
+        echo("</div>");
+    }
+
+}
+
+add_shortcode("all_partners", "shortcode_all_partners" );
 
 ?>
