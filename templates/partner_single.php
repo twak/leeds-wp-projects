@@ -108,5 +108,42 @@ if ( have_posts() ) {
 
         ?>
 
-        <?php
+<?php
+$args = array(
+    'post_type' => 'projects',
+    'meta_query' => array(
+        array(
+            'key' => 'partners', // name of custom field
+            'value' => '"' . get_the_ID() . '"', // matches exaclty "123", not just 123. This prevents a match for "1234"
+            'compare' => 'LIKE'
+        )
+    )
+);
+
+
+$loop = new WP_Query($args);
+
+if ($loop->have_posts()) {
+
+    ?>
+
+    <div class="main wrapper-lg">
+        <div class="wrapper-xs-pd" style="margin-right: 1em; margin-left:1em">
+
+            <h2>Projects:</h2>
+
+            <?php
+
+            // Page is not split by category.
+            while ($loop->have_posts()) {
+
+                $loop->the_post();
+                twak_inner_project();
+
+            } ?>
+        </div>
+    </div>
+
+    <?php
+}
         get_footer(); ?>

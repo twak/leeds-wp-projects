@@ -7,26 +7,28 @@ if (!class_exists('Proj_Post_Type')) {
 
         public function __construct()
         {
-            add_action( 'acf/init', array( $this, 'create_post_type' ), 9 );
-            add_filter( 'single_template', array( $this, 'single_template' ) );
-            add_filter( 'archive_template', array( $this, 'archive_template' ) );
+            add_action('acf/init', array($this, 'create_post_type'), 9);
+            add_filter('single_template', array($this, 'single_template'));
+            add_filter('archive_template', array($this, 'archive_template'));
 
-            if (!has_image_size( 'sq512') )
-                add_image_size( 'sq512', 512, 512, true );
+            if (!has_image_size('sq512'))
+                add_image_size('sq512', 512, 512, true);
         }
 
-        public function archive_template( $archive_template ) {
+        public function archive_template($archive_template)
+        {
             global $wp_query;
-            if ( is_post_type_archive ( 'projects' ) ) {
-                return dirname( __DIR__ ) . '/templates/archive.php';
+            if (is_post_type_archive('projects')) {
+                return dirname(__DIR__) . '/templates/proj_archive.php';
             }
             return $archive_template;
         }
 
-        public function single_template( $single_template ) {
+        public function single_template($single_template)
+        {
             global $post;
-            if ( 'projects' === $post->post_type ) {
-                return dirname( __DIR__ ) . '/templates/single.php';
+            if ('projects' === $post->post_type) {
+                return dirname(__DIR__) . '/templates/proj_single.php';
             }
 
             return $single_template;
@@ -75,7 +77,7 @@ if (!class_exists('Proj_Post_Type')) {
                 'exclude_from_search' => false,
                 'publicly_queryable' => true,
                 'capability_type' => 'page',
-                'menu_icon'    => 'dashicons-pressthis',
+                'menu_icon' => 'dashicons-pressthis',
             );
 
             // Registering your Custom Post Type
@@ -85,4 +87,56 @@ if (!class_exists('Proj_Post_Type')) {
     }
 
     new Proj_Post_Type();
+}
+
+function twak_inner_project()
+{
+    $profile_link = apply_filters('tk_profile_url', '', get_the_id());
+    $name = get_the_title();
+
+    ?>
+
+    <!--        <div class="card-flat card-stacked-xs skin-bd-b skin-box-module">-->
+
+    <div class="row card-flat  skin-bd-b skin-box-module  " style="min-height:11em;">
+        <div>
+            <div class="col-sm-2">
+                <a href="<?php echo esc_url($profile_link); ?>">
+                    <?php
+                    if (has_post_thumbnail()) {
+                        // Check if Thumbnail exists.
+                        ?>
+                        <div>
+                            <img width="140em" src='<?php the_post_thumbnail_url('sq512'); ?>'
+                                 alt='"<?php echo esc_attr($name); ?>"'/>
+                        </div>
+                        <?php
+                    } else {
+                        ?>
+
+                        <div style="max-height:10em">
+                            <div class="rs-img"></div>
+                        </div>
+
+
+                        <?php
+                    }
+                    ?>
+                </a>
+            </div>
+            <div class="col-sm-8">
+                <a href="<?php echo esc_url($profile_link); ?>">
+                    <h2 style="font-family: freight-display-pro; margin-top:0.5em"><?php the_title(); ?></h2>
+
+                    <?php
+                    $value = get_field('all_authors');
+                    if ($value)
+                        echo('<h3 style="text-align: left">' . $value . '</h3>');
+                    ?>
+                </a>
+            </div>
+            </a>
+        </div>
+    </div>
+    <?php
 }
