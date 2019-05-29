@@ -38,6 +38,8 @@ function twak_demo_info( $data ) {
 add_action( 'rest_api_init', 'twak_register_routes' );
 
 # responds to https://localhost/vcg/wp-json/myplugin/v1/demo
+# https://css-tricks.com/a-responsive-grid-layout-with-no-media-queries/
+
 function twak_register_routes() {
     register_rest_route(
         'myplugin/v1',
