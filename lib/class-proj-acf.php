@@ -155,7 +155,7 @@ if ( ! class_exists( 'Proj_Profiles_ACF' ) ) {
                         'label' => 'partners',
                         'name' => 'partners',
                         'type' => 'relationship',
-                        'instructions' => 'Which partners to associate with this project?  (click \'select post\' type then \'person\')',
+                        'instructions' => 'Which partners to associate with this project?  (click \'select post\' type then \'person\'). Create a new Partner <a href="https://vcg.leeds.ac.uk/wp-admin/edit.php?post_type=partners">here</a>.',
                         'required' => 0,
                         'conditional_logic' => 0,
                         'wrapper' => array (
