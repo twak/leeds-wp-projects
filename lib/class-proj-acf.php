@@ -155,7 +155,7 @@ if ( ! class_exists( 'Proj_Profiles_ACF' ) ) {
                         'label' => 'partners',
                         'name' => 'partners',
                         'type' => 'relationship',
-                        'instructions' => 'Which partners to associate with this project?',
+                        'instructions' => 'Which partners to associate with this project?  (click \'select post\' type then \'person\')',
                         'required' => 0,
                         'conditional_logic' => 0,
                         'wrapper' => array (
@@ -195,7 +195,7 @@ if ( ! class_exists( 'Proj_Profiles_ACF' ) ) {
                         'label' => 'bibtex papers',
                         'name' => 'bibtex_papers',
                         'type' => 'repeater',
-                        'instructions' => 'list of papers associated with this project.',
+                        'instructions' => 'list of papers associated with this project.  (click \'add\' then copy bibtex id from <a href="https://vcg.leeds.ac.uk/research/publications/">publications page</a>)',
                         'required' => 0,
                         'conditional_logic' => 0,
                         'wrapper' => array(
@@ -207,7 +207,7 @@ if ( ! class_exists( 'Proj_Profiles_ACF' ) ) {
                         'min' => 0,
                         'max' => 0,
                         'layout' => 'table',
-                        'button_label' => '',
+                        'button_label' => 'add',
                         'sub_fields' => array(
                             array(
                                 'key' => 'field_5ce9b0605d975',

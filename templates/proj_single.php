@@ -47,10 +47,10 @@ if ( have_posts() ) {
 
         $value = get_field('whiterose');
         if ($value) {
-            echo("<div class='col-sm-2'><a href=" . $value . "><img width='80em' style='  display: block; margin-left: auto;  margin-right: auto;' src='" . plugins_url("leeds-wp-projects/resources/whiterose_pdf.svg") . "'/></a></div> ");
+            echo("<div class='col-sm-2 col-xs-4'><a href=" . $value . "><img width='80em' style='  display: block; margin-left: auto;  margin-right: auto;' src='" . plugins_url("leeds-wp-projects/resources/whiterose_pdf.svg") . "'/></a></div> ");
         }
 
-        echo ("<div class='col-sm-10'>");
+        echo ("<div class='col-sm-10 col-xs-8'>");
 
         $value = get_field( 'conf' );
             if( $value )
@@ -65,8 +65,8 @@ if ( have_posts() ) {
 
         if ( has_post_thumbnail() && tk_display_featured_image() ) {
             ?>
-            <div style="justify-content: center; ">
-            <img style="width:100%; margin-bottom: 1em" src="<?php the_post_thumbnail_url( 'full' ); ?>">
+            <div style="display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: center; align-content: center; align-items: flex-start;">
+            <img style="max-height:512px;  flex: 0 1 auto; align-self: auto;" src="<?php the_post_thumbnail_url( 'full' ); ?>">
 
             </div>
             <?php
