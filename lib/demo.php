@@ -4,7 +4,7 @@ function twak_demo_info( $data ) {
     $posts = get_posts( array(
         'post_type'  => 'any',
         'orderby'   => 'rand',
-        'posts_per_page' => 6,
+        'posts_per_page' => 60,
         'meta_query' => array(
             array(
                 'key' => '_thumbnail_id',
@@ -28,7 +28,7 @@ function twak_demo_info( $data ) {
 
         array_push($out, array (
             "name" => acf_get_post_title($post),
-            "img" => wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'sq512', false ),
+            "img" => wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'sq512', false )[0],
             "link" =>  $link ) );
     }
 
