@@ -1,9 +1,18 @@
 <?php
 
 function twak_demo_info( $data ) {
+
+    $offset = 0;
+
+    if (array_key_exists('s', $_GET))
+        $offset = (int) $_GET["s" ];
+
+
     $posts = get_posts( array(
         'post_type'  => 'any',
-        'orderby'   => 'rand',
+//        'orderby'   => 'rand'
+        'offset'     => $offset,
+        'orderby'          => 'date',
         'posts_per_page' => 10,
         'meta_query' => array(
             array(
@@ -13,9 +22,9 @@ function twak_demo_info( $data ) {
         )
     ) );
 
-    if ( empty( $posts ) ) {
-        return "null";
-    }
+//    if ( empty( $posts ) ) {
+//        return "null";
+//    }
 
     $out = [];
 
@@ -42,7 +51,7 @@ add_action( 'rest_api_init', 'twak_register_routes' );
 
 function twak_register_routes() {
     register_rest_route(
-        'myplugin/v1',
+        'leeds-wp-projects/v1',
         '/demo',
         array(
             'methods' => 'GET',
@@ -148,7 +157,12 @@ function demo_auto_grid($add /* 0 if shortcode, 1 if fullscreen */, $px_size, $e
 
 
             $( document ).ready(function() {
+
                 window.data_cache=[];
+                window.data_offset = 0;
+                window.data_complete = false;
+                window.current_datum = 0;
+
                 fetchData();
                 build();
 
@@ -173,6 +187,8 @@ function demo_auto_grid($add /* 0 if shortcode, 1 if fullscreen */, $px_size, $e
                 $(<?php echo ($element); ?>).resize(function() {
                     build();
                 });
+
+
             });
 
             function timerIncrement() {
@@ -181,14 +197,21 @@ function demo_auto_grid($add /* 0 if shortcode, 1 if fullscreen */, $px_size, $e
 
             function fetchData () {
 
-                if (window.data_cache.length < 2000)
+                if (!window.data_complete)
                 $.ajax({
                     dataType: "json",
-                    url: <?php get_site_url() ?>"/wp-json/myplugin/v1/demo",
+                    url: <?php get_site_url() ?>"/wp-json/leeds-wp-projects/v1/demo?s="+window.data_offset,
                     // data: data,
                     success: function(data) {
+
+                        if (data.length === 0) {
+                            window.data_complete = true;
+                            return;
+                        }
+
                         window.data_cache=window.data_cache.concat(data);
-                        // console.log(data);
+                        window.data_offset += 10;
+                        console.log(data);
                     }
                 });
             }
@@ -206,7 +229,7 @@ function demo_auto_grid($add /* 0 if shortcode, 1 if fullscreen */, $px_size, $e
 
                     if (!item.is(":hover") ) {
 
-                        var d = window.data_cache[Math.floor(Math.random()*window.data_cache.length)];
+                        var d = window.data_cache[window.current_datum];
 
                         var img =$(item).find("img");
 
@@ -240,7 +263,8 @@ function demo_auto_grid($add /* 0 if shortcode, 1 if fullscreen */, $px_size, $e
                         $(item).find("img").removeClass("jadu-cms");
                         // $(item) .append($ ( "<a href='" +d['link']+ "'><img src='"+d['img']+"'/></a>") );
                     }
-                    window.current_coord = (window.current_coord + 1) % window.coords.length;
+                window.current_coord = (window.current_coord + 1) % window.coords.length;
+                window.current_datum = (window.current_datum + 1) % window.data_cache.length;
 
 
             }

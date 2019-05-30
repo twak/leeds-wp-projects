@@ -47,10 +47,10 @@ if ( have_posts() ) {
 
         $value = get_field('whiterose');
         if ($value) {
-            echo("<div class='col-sm-2 col-xs-4'><a href=" . $value . "><img width='80em' style='  display: block; margin-left: auto;  margin-right: auto;' src='" . plugins_url("leeds-wp-projects/resources/whiterose_pdf.svg") . "'/></a></div> ");
+            echo("<div class='col-sm-2 col-xs-4'><a href=" . $value . "><img width='80em' style='  display: block; margin-left: auto;  margin-right: 0;' src='" . plugins_url("leeds-wp-projects/resources/whiterose_pdf.svg") . "'/></a></div> ");
         }
 
-        echo ("<div class='col-sm-10 col-xs-8'>");
+        echo ("<div class='col-sm-10 col-xs-8' style='margin-top:0.2em; padding-left:0px;'>");
 
         $value = get_field( 'conf' );
             if( $value )
@@ -142,7 +142,7 @@ if ( have_posts() ) {
 //            echo("<div class='row jadu-cms'>");
             ?>
             <!--    <div class="wrapper-lg" style="margin-top:1em">-->
-            <h2 style='margin-right: 0.4em; margin-left:0.4em'>Partners</h2>
+            <h2 style='margin-right: 0.4em; margin-left:0.55em'>Partners</h2>
             <div style='margin:4em; margin-top:128px; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; align-content: flex-start; align-items: flex-start;'>
 
             <?php

@@ -48,7 +48,10 @@ if ( have_posts() ) {
 
             <div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 			<div class="jadu-cms">
-				<?php the_content(); ?>
+
+                <h2>Partner: <?php the_title(); ?></h2>
+
+                <?php the_content(); ?>
 				<?php do_action( 'tk_profiles_after_content', $profile_id, get_the_title() ); ?>
 			</div>
 		</div>
