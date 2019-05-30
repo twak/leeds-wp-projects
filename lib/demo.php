@@ -133,13 +133,13 @@ function demo_auto_grid($add /* 0 if shortcode, 1 if fullscreen */, $px_size, $e
                     for (var c = 0; c < cols; c++) {
                         var id = 'x_' + c + '_y_' + r ;
                         $('<td class="cell" id="' + id + '" ><a class="the_link" target="<?php echo ($add == 1 ? "iframe_a" : "_self"); ?>" href="/"><img src="<?php get_site_url() ?>/wp-content/plugins/leeds-wp-projects/resources/logo_blue.svg"/></a></td>').appendTo(tr);
-                        window.coords.push(id);
+                        if (r != 1 && c != 1)
+                            window.coords.push(id);
                     }
                     tr.appendTo(table);
                 }
 
                 shuffleArray(window.coords);
-                window.coords.pop();
                 table.appendTo ( $(".auto-grid")[0] );
                 window.current_coord = 0;
 
@@ -284,6 +284,8 @@ function demo_auto_grid($add /* 0 if shortcode, 1 if fullscreen */, $px_size, $e
 
             table, th, td {
                 border: 0;
+                margin: 0 auto; /* or margin: 0 auto 0 auto */
+
             }
 
 
@@ -343,7 +345,7 @@ function demo_iframe($atts) {
 
     ?>
 
-    <div style="border-width: 10; border-color: black">
+    <div>
     <div style='width:100%; height:<?php echo($height) ?> ; overflow:hidden' class='auto-grid'> </div>
     </div>
 <?php
