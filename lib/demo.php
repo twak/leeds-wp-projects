@@ -133,7 +133,7 @@ function demo_auto_grid($add /* 0 if shortcode, 1 if fullscreen */, $px_size, $e
                     for (var c = 0; c < cols; c++) {
                         var id = 'x_' + c + '_y_' + r ;
                         $('<td class="cell" id="' + id + '" ><a class="the_link" target="<?php echo ($add == 1 ? "iframe_a" : "_self"); ?>" href="/"><img src="<?php get_site_url() ?>/wp-content/plugins/leeds-wp-projects/resources/logo_blue.svg"/></a></td>').appendTo(tr);
-                        if (r != 1 && c != 1)
+                        if (r != 1 || c != 1)
                             window.coords.push(id);
                     }
                     tr.appendTo(table);
@@ -145,9 +145,7 @@ function demo_auto_grid($add /* 0 if shortcode, 1 if fullscreen */, $px_size, $e
 
             }
 
-            $( <?php echo ($element); ?> ).resize(function() {
-                 build();
-            });
+
 
             $( document ).ready(function() {
                 window.data_cache=[];
@@ -171,6 +169,10 @@ function demo_auto_grid($add /* 0 if shortcode, 1 if fullscreen */, $px_size, $e
 
                 window.setInterval(fetchData, <?php echo($speed* 10); ?> )
                 window.setInterval(displayData, <?php echo($speed); ?>);
+
+                $(<?php echo ($element); ?>).resize(function() {
+                    build();
+                });
             });
 
             function timerIncrement() {
@@ -204,10 +206,7 @@ function demo_auto_grid($add /* 0 if shortcode, 1 if fullscreen */, $px_size, $e
 
                     if (!item.is(":hover") ) {
 
-                        // $(item).empty();
                         var d = window.data_cache[Math.floor(Math.random()*window.data_cache.length)];
-                        // $(item).attr("href", d['link']);
-                        // $(item).find("img").attr('src', d['img']);
 
                         var img =$(item).find("img");
 
@@ -217,11 +216,7 @@ function demo_auto_grid($add /* 0 if shortcode, 1 if fullscreen */, $px_size, $e
                             $(item).find("a").attr("href", d['link']).attr('alt', d['name'] );
                             $(item).find("a").attr('title', d['name'] );
 
-
                         <?php if ($add == 1) { ?>
-
-                            // console.log(window.last_update);
-                            // console.log(window.idleTime);
 
                             if (window.last_update == null )
                             {
@@ -229,12 +224,6 @@ function demo_auto_grid($add /* 0 if shortcode, 1 if fullscreen */, $px_size, $e
                             }
                             else if ( new Date().getTime() - window.last_update > window.update_limit_ms /*ms*/ && window.idleTime > window.idle_limit_sec /* seconds */) {
 
-
-                                // $('iframe').fadeOut().queue(function() {
-                                //     $('iframe').attr('src', d['link']).queue(function() {
-                                //         $('iframe').fadeIn();
-                                //     });
-                                // } );
 
                                 $("iframe").attr('src', d['link']);
                                 window.last_update = new Date().getTime();
@@ -244,26 +233,14 @@ function demo_auto_grid($add /* 0 if shortcode, 1 if fullscreen */, $px_size, $e
                             }
                             ?>
 
-
-
-                            // $('#prev').attr('src', d['link'])
-
                             $(img).fadeIn();
                             $(img).dequeue();
                         });
 
-                        //
-                        // $(img).fadeTo(250, function() {
-                        //     $(img).attr("src",  d['img'] );
-                        // });
                         $(item).find("img").removeClass("jadu-cms");
                         // $(item) .append($ ( "<a href='" +d['link']+ "'><img src='"+d['img']+"'/></a>") );
                     }
-                    // $(item).append(("foo"));//.attr("href", window.data[window.index]['url']) );
-                    // window.index = (window.index + 1) % window.data.length;
                     window.current_coord = (window.current_coord + 1) % window.coords.length;
-
-            //
 
 
             }
