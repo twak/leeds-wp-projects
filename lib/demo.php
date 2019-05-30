@@ -197,7 +197,7 @@ function demo_auto_grid($add, $element, $speed) {
                             {
                                 window.last_update = new Date().getTime();
                             }
-                            else if ( new Date().getTime() - window.last_update > 5000 /*ms*/ && window.idleTime > 60 /* seconds */) {
+                            else if ( new Date().getTime() - window.last_update > 10000 /*ms*/ && window.idleTime > 60 /* seconds */) {
 
 
                                 // $('iframe').fadeOut().queue(function() {
