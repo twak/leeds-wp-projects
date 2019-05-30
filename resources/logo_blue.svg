@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="71.4375mm"
+   height="48.380951mm"
+   viewBox="0 0 71.4375 48.380951"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="logo_blue.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="-55.866382"
+     inkscape:cy="75.801664"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="2194"
+     inkscape:window-height="1135"
+     inkscape:window-x="455"
+     inkscape:window-y="879"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-48.75893,-34.306549)">
+    <path
+       inkscape:connector-curvature="0"
+       id="path845"
+       d="m 89.223014,41.439894 c -7.024893,0 -12.762607,3.70096 -15.525131,9.395828 h -0.0046 l -0.0318,0.07642 c -0.258086,0.538874 -0.489644,1.095293 -0.693209,1.668094 L 65.202547,71.264024 53.453524,42.027259 h -3.660128 l 13.737,33.393978 h 3.25368 l 5.511502,-12.875391 c 1.644052,7.86857 8.4774,13.462758 17.153661,13.462758 2.293916,0 4.400668,-0.363786 6.314945,-1.083097 1.997033,0.701022 4.170835,1.083097 6.458666,1.083097 5.287,0 9.80569,-1.988226 13.01403,-5.648454 2.71127,-3.117972 4.15717,-6.597457 4.3831,-10.348057 h -8.4152 v 3.027454 h 4.39358 c -0.49706,2.169019 -1.62663,4.021754 -3.52453,5.919646 -2.57571,2.57571 -6.10041,3.976642 -9.98658,3.976642 -0.81995,0 -1.62223,-0.06347 -2.402891,-0.184294 1.977271,-1.513017 3.661501,-3.547651 5.038431,-6.09684 h -3.70544 c -1.400836,1.762328 -2.214281,2.665967 -3.343974,3.524539 -0.635619,0.505898 -1.340004,0.946184 -2.090438,1.320137 -4.850179,-2.286771 -8.136564,-7.082128 -8.136564,-12.752639 0,-5.777445 3.287418,-10.598645 8.187284,-12.856793 0.535908,0.258904 1.052086,0.551523 1.54264,0.881894 1.491201,0.948948 2.394865,1.943395 3.660142,3.931667 h 3.75076 c -1.09502,-2.439783 -2.788,-4.477653 -4.901836,-6.01636 0.765076,-0.114495 1.551796,-0.174486 2.356576,-0.174486 5.15142,0 9.4894,2.349813 11.79399,6.41673 h 3.75076 c -2.2142,-5.693684 -8.54069,-9.489496 -15.81595,-9.489496 -2.211225,0 -4.314743,0.374089 -6.249685,1.061114 -1.940424,-0.691531 -4.064496,-1.061114 -6.298041,-1.061114 z m 0.135596,3.072766 c 0.675339,0 1.340443,0.0436 1.992041,0.126807 -4.44835,3.094998 -7.293552,8.166923 -7.293552,14.016982 0,5.896305 2.90306,11.000259 7.452483,14.118086 -0.695133,0.105088 -1.400232,0.1613 -2.105658,0.1613 -7.727138,0 -14.098475,-6.41656 -14.098475,-14.234072 0,-8.043458 6.100086,-14.189103 14.053161,-14.189103 z"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:30.16461563px;line-height:1.25;font-family:'URW Gothic L';-inkscape-font-specification:'URW Gothic L, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#51738c;fill-opacity:1;stroke:none;stroke-width:0.26458332" />
+  </g>
+</svg>
