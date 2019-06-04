@@ -146,14 +146,14 @@ function gal_shortcode( $attr ) {
         $src = wp_get_attachment_image_src( $id, "full", true  )[0];
 //        $output .= "<div class='slick-twak-inner'><a href='".$src."'>";
         $output .= "<div class='slick-twak-inner'><a href='".$src."'>";
-        $output.=  "<img style='height:". $im_height ."px;' src='".wp_get_attachment_image_src( $id, $thumb_size, false )[0] ."'/>";
-//        $output.=   wp_get_attachment_image( $id, $thumb_size, false );
+        $output.=  "<img style='height:". $im_height ."px;' src='".$src."'/>";
+//        $output.=  "<img style='height:". $im_height ."px;' src='".wp_get_attachment_image_src( $id, $thumb_size, false )[0] ."'/>";
         $output .= "</a></div>";
     }
 
     $output .= "</div>";
-    $output .= "</div>";
-    $output .= "</div>";
+//    $output .= "</div>";
+//    $output .= "</div>";
 
     $output .= "<script type=\"text/javascript\">    $(document).ready(function(){       $('.slick-twak').slick({
     variableWidth: true,
