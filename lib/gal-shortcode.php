@@ -2,6 +2,24 @@
 
 add_shortcode( 'gal', 'gal_shortcode' );
 
+function get_all_image_sizes() {
+    $image_sizes = array();
+
+    global $_wp_additional_image_sizes;
+    $default_image_sizes = array( 'thumbnail', 'medium', 'large' );
+
+    foreach ( $default_image_sizes as $size ) {
+        $image_sizes[$size]['width']	= intval( get_option( "{$size}_size_w") );
+        $image_sizes[$size]['height'] = intval( get_option( "{$size}_size_h") );
+        $image_sizes[$size]['crop']	= get_option( "{$size}_crop" ) ? get_option( "{$size}_crop" ) : false;
+    }
+
+    if ( isset( $_wp_additional_image_sizes ) && count( $_wp_additional_image_sizes ) )
+        $image_sizes = array_merge( $image_sizes, $_wp_additional_image_sizes );
+
+    return $image_sizes;
+}
+
 function gal_shortcode( $attr ) {
     $post = get_post();
 
@@ -95,9 +113,27 @@ function gal_shortcode( $attr ) {
         return $output;
     }
 
+    $thumb_size = 'medium';
+
+    if (array_key_exists( 'size', $attr ) )
+        $thumb_size = $attr['size'];
+
+    $im_height =  get_all_image_sizes()[$thumb_size]['width']; //?? no defined heights
+
+//    print_r(get_all_image_sizes());
+
+    $json ="";
+    foreach ($attr as $key => $val){
+        $json .= $key.": '".$val."',";
+    }
+
+
+
+
     $output .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css\"/><link rel=\"stylesheet\" type=\"text/css\" href=\"https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css\"/>";
 
-    $output .="<style>.slick-arrow:before {color:#51738c;} </style>";
+    $output .="<style>.slick-arrow:before {color:#51738c; } button.slick-arrow {height:100%;} .slick-twak{margin: 0 1em 0 1em ;} @media (max-width: 479px) { button.slick-arrow {display: none; margin: 0px; }}
+}</style>";
 
     $output .= "<script type=\"text/javascript\" src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js\"></script>";
     $output .=  "<script type=\"text/javascript\" src=\"https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js\"></script>";
@@ -108,8 +144,10 @@ function gal_shortcode( $attr ) {
 
 
         $src = wp_get_attachment_image_src( $id, "full", true  )[0];
+//        $output .= "<div class='slick-twak-inner'><a href='".$src."'>";
         $output .= "<div class='slick-twak-inner'><a href='".$src."'>";
-        $output.= wp_get_attachment_image( $id, "medium", false );
+        $output.=  "<img style='height:". $im_height ."px;' src='".wp_get_attachment_image_src( $id, $thumb_size, false )[0] ."'/>";
+//        $output.=   wp_get_attachment_image( $id, $thumb_size, false );
         $output .= "</a></div>";
     }
 
@@ -118,9 +156,10 @@ function gal_shortcode( $attr ) {
     $output .= "</div>";
 
     $output .= "<script type=\"text/javascript\">    $(document).ready(function(){       $('.slick-twak').slick({
-  variableWidth: true,
+    variableWidth: true,
     dots: true,
-  infinite: true,
+    infinite: true,
+    autoplay: true,".$json."
 
   });     });   </script>";
 
