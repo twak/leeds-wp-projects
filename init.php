@@ -16,3 +16,4 @@ require_once dirname(__FILE__) . '/lib/class-proj-post-type.php';
 require_once dirname(__FILE__) . '/lib/class-partners-post-type.php';
 require_once dirname(__FILE__) . '/lib/class-proj-acf.php';
 require_once dirname(__FILE__) . '/lib/demo.php';
+require_once dirname(__FILE__) . '/lib/gal-shortcode.php';

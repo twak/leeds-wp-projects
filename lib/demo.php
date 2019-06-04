@@ -101,17 +101,29 @@ function demo($params) {
         if (array_key_exists('page', $_GET))
             $page = (int) $_GET["page" ];
 
-        demo_auto_grid(1, 256, "window", $speed, $page );
+        $px = 256;
+        if (array_key_exists('px', $_GET))
+            $px = (int) $_GET["px"];
+
+        $idle = 60;
+        if (array_key_exists('idle', $_GET))
+            $idle = (int) $_GET["idle" ];
+
+        demo_auto_grid(1, $px, "window", $speed, $page, $idle );
     ?>
         <body>
 
 
-        <div style="    display: flex;     flex-direction: row;     flex-wrap: nowrap;     justify-content: center;     align-content: space-around;     align-items: stretch;; overflow:auto; background-color:#111111;">
+        <div style="    display: flex;     flex-direction: row;     flex-wrap: nowrap;     justify-content: center;     align-content: space-around;     align-items: stretch; overflow:hidden;">
         <div class="auto-grid" style="flex: 1 0 66%; align-self: auto; overflow:hidden;">
         </div>
+
+        <?php if ($idle > 0) {  ?>
+
         <div style="flex: 3 0 34%; align-self: auto;">
-            <iframe style="    position: relative;    height: 100%;     width: 100%; " frameBorder="0"src="<?php echo(get_site_url()); ?>" name="iframe_a"></iframe>
+            <iframe scrolling="no" style="    position: relative;    height: 100%;     width: 100%; " frameBorder="0"src="" name="iframe_a"></iframe>
         </div>
+            <?php }  ?>
         </div>
         </body>
         </html>
@@ -123,7 +135,7 @@ function demo($params) {
     }
 }
 
-function demo_auto_grid($add /* 0 if shortcode, 1 if fullscreen */, $px_size, $element, $speed, $page) {
+function demo_auto_grid($add /* 0 if shortcode, 1 if fullscreen */, $px_size, $element, $speed, $page, $idle_time_sec) {
     ?>
 
         <script>
@@ -175,7 +187,7 @@ function demo_auto_grid($add /* 0 if shortcode, 1 if fullscreen */, $px_size, $e
                     window.idleTime = 0;
                 });
 
-                window.idle_limit_sec = 60; // if the mouse isn't moved for this long, update webpage
+                // window.idle_limit_sec = 60; // if the mouse isn't moved for this long, update webpage
                 window.update_limit_ms = <?php echo($page); ?>; // update the shared this often, upate webpage
 
                 $(".the_link").attr('alt', "VCG" );
@@ -208,6 +220,8 @@ function demo_auto_grid($add /* 0 if shortcode, 1 if fullscreen */, $px_size, $e
                             window.data_complete = true;
                             return;
                         }
+
+                        shuffleArray(data);
 
                         window.data_cache=window.data_cache.concat(data);
                         window.data_offset += 10;
@@ -245,11 +259,29 @@ function demo_auto_grid($add /* 0 if shortcode, 1 if fullscreen */, $px_size, $e
                             {
                                 window.last_update = new Date().getTime();
                             }
-                            else if ( new Date().getTime() - window.last_update > window.update_limit_ms /*ms*/ && window.idleTime > window.idle_limit_sec /* seconds */) {
+                            else if ( new Date().getTime() - window.last_update > window.update_limit_ms /*ms*/ && window.idleTime > <?php echo( $idle_time_sec ); ?> /* seconds */) {
 
-
-                                $("iframe").attr('src', d['link']);
                                 window.last_update = new Date().getTime();
+
+                                $('iframe').fadeOut(300,function(){
+                                    $('iframe').attr('src', d['link'] ).on ("load", function(){
+                                        $(this).fadeIn(300);
+                                    });
+                                });
+
+                                // $("iframe").fadeOut(1000,function() {
+                                //
+                                //     $("iframe").attr('src', "");
+                                //
+                                //
+                                //
+                                //     $("iframe").attr('src', d['link']);
+                                //
+                                //     $("iframe").fadeIn(0);
+                                //     // $("iframe").dequeue();
+                                // } );
+
+
                             }
 
                             <?php
@@ -263,10 +295,16 @@ function demo_auto_grid($add /* 0 if shortcode, 1 if fullscreen */, $px_size, $e
                         $(item).find("img").removeClass("jadu-cms");
                         // $(item) .append($ ( "<a href='" +d['link']+ "'><img src='"+d['img']+"'/></a>") );
                     }
+
+
                 window.current_coord = (window.current_coord + 1) % window.coords.length;
-                window.current_datum = (window.current_datum + 1) % window.data_cache.length;
 
 
+                window.current_datum++;
+                if (window.current_datum >= window.data_cache.length) {
+                    // shuffleArray(window.data_cache);
+                    window.current_datum = window.current_datum % window.data_cache.length;
+                }
             }
 
             function shuffleArray(array) {
@@ -289,6 +327,9 @@ function demo_auto_grid($add /* 0 if shortcode, 1 if fullscreen */, $px_size, $e
 
             }
 
+            iframe {
+                overflow-y:hidden;
+            }
 
             img, .cms a>img, .jadu-cms a>img {
                 display: block;
@@ -342,7 +383,7 @@ function demo_iframe($atts) {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <?php
 
-    demo_auto_grid(0, $px_size, "'.auto-grid'", 600, -1);
+    demo_auto_grid(0, $px_size, "'.auto-grid'", 600, -1, -1);
 
     ?>
 
