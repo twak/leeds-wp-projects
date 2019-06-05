@@ -152,14 +152,12 @@ function gal_shortcode( $attr ) {
     }
 
     $output .= "</div>";
-//    $output .= "</div>";
-//    $output .= "</div>";
 
     $output .= "<script type=\"text/javascript\">    $(document).ready(function(){       $('.slick-twak').slick({
-    variableWidth: true,
-    dots: true,
-    infinite: true,
-    autoplay: true,".$json."
+        variableWidth: true,
+        dots         : true,
+        infinite     : true,
+        autoplay     : true,".$json."
 
   });     });   </script>";
 

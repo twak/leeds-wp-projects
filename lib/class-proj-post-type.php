@@ -107,7 +107,7 @@ function twak_inner_project()
                         // Check if Thumbnail exists.
                         ?>
                         <div>
-                            <img width="140em" src='<?php the_post_thumbnail_url('sq512'); ?>'
+                            <img style="display: block; margin-left: auto; margin-right: auto; width=140em;" src='<?php the_post_thumbnail_url('sq512'); ?>'
                                  alt='"<?php echo esc_attr($name); ?>"'/>
                         </div>
                         <?php
