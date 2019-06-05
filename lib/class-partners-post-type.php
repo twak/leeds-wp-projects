@@ -118,6 +118,10 @@ function twak_inner_partner()
 }
 
 function shortcode_all_partners() {
+
+
+    ob_start();
+
 // Collect query args.
     $args = array(
         'post_type' => 'partners',
@@ -141,6 +145,8 @@ function shortcode_all_partners() {
 
         echo("</div>");
     }
+
+    return ob_get_clean();
 
 }
 
