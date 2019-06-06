@@ -24,7 +24,7 @@ $display = (get_field('tk_profile_display', 'option') ?: 'all');
 ?>
 
 <div class="tk-profiles-list-wrapper">
-    <h1 class="heading-underline">Featured Projects</h1>
+    <h1 class="heading-underline">Research Projects</h1>
 </div>
 
 <?php
@@ -36,7 +36,7 @@ $template = get_field('tk_profiles_page_settings_template', 'option');
 $args = array(
     'post_type' => 'projects',
     'posts_per_page' => -1,
-    'order' => 'ASC',
+    'order' => 'DESC',
 );
 
 // New query.
