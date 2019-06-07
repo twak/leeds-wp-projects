@@ -10,7 +10,6 @@ function twak_demo_info( $data ) {
 
     $posts = get_posts( array(
         'post_type'  => 'any',
-//        'orderby'   => 'rand'
         'offset'     => $offset,
         'orderby'          => 'date',
         'posts_per_page' => 10,
@@ -21,10 +20,6 @@ function twak_demo_info( $data ) {
             ),
         )
     ) );
-
-//    if ( empty( $posts ) ) {
-//        return "null";
-//    }
 
     $out = [];
 
@@ -45,9 +40,6 @@ function twak_demo_info( $data ) {
 }
 
 add_action( 'rest_api_init', 'twak_register_routes' );
-
-# responds to https://localhost/vcg/wp-json/myplugin/v1/demo
-# https://css-tricks.com/a-responsive-grid-layout-with-no-media-queries/
 
 function twak_register_routes() {
     register_rest_route(
@@ -77,9 +69,6 @@ function demo($params) {
             <title>VCG demo</title>
         </head>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!--        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>-->
-<!--        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">-->
-
         <style>
 
             body {
@@ -135,7 +124,7 @@ function demo($params) {
     }
 }
 
-function demo_auto_grid($add /* 0 if shortcode, 1 if fullscreen */, $px_size, $element, $speed, $page, $idle_time_sec) {
+function demo_auto_grid($add, $px_size, $element, $speed, $page, $idle_time_sec) {
     ?>
 
         <script>
