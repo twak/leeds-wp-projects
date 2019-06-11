@@ -142,7 +142,7 @@ function demo_auto_grid($add, $px_size, $element, $speed, $page, $idle_time_sec)
                     var tr = $("<tr style='height:<?php echo($px_size)?>px'>");
                     for (var c = 0; c < cols; c++) {
                         var id = 'x_' + c + '_y_' + r ;
-                        $('<td class="cell" id="' + id + '" ><a class="the_link" target="<?php echo ($add == 1 ? "iframe_a" : "_self"); ?>" href="/"><img src="<?php get_site_url() ?>/wp-content/plugins/leeds-wp-projects/resources/logo_blue.svg"/></a></td>').appendTo(tr);
+                        $('<td class="cell" id="' + id + '" ><a class="the_link" target="<?php echo ($add == 1 ? "iframe_a" : "_self"); ?>" href="/"><img class="demo-img" src="<?php get_site_url() ?>/wp-content/plugins/leeds-wp-projects/resources/logo_blue.svg"/></a></td>').appendTo(tr);
                         if (r != 1 || c != 1)
                             window.coords.push(id);
                     }
@@ -182,7 +182,7 @@ function demo_auto_grid($add, $px_size, $element, $speed, $page, $idle_time_sec)
                 $(".the_link").attr('alt', "VCG" );
                 $(".the_link").attr('title', "VCG" );
 
-                window.setInterval(fetchData, <?php echo($speed* 10); ?> )
+                window.setInterval(fetchData, <?php echo($speed* 8); ?> )
                 window.setInterval(displayData, <?php echo($speed); ?>);
 
                 $(<?php echo ($element); ?>).resize(function() {
@@ -221,7 +221,6 @@ function demo_auto_grid($add, $px_size, $element, $speed, $page, $idle_time_sec)
 
             function displayData() {
 
-
                     if (window.data_cache == undefined || window.data_cache.length == 0) {
                         console.log("waiting for first data");
                         return;
@@ -257,20 +256,6 @@ function demo_auto_grid($add, $px_size, $element, $speed, $page, $idle_time_sec)
                                         $(this).fadeIn(300);
                                     });
                                 });
-
-                                // $("iframe").fadeOut(1000,function() {
-                                //
-                                //     $("iframe").attr('src', "");
-                                //
-                                //
-                                //
-                                //     $("iframe").attr('src', d['link']);
-                                //
-                                //     $("iframe").fadeIn(0);
-                                //     // $("iframe").dequeue();
-                                // } );
-
-
                             }
 
                             <?php
@@ -320,7 +305,7 @@ function demo_auto_grid($add, $px_size, $element, $speed, $page, $idle_time_sec)
                 overflow-y:hidden;
             }
 
-            img, .cms a>img, .jadu-cms a>img {
+            .demo-img, .cms a>img, .jadu-cms a>img {
                 display: block;
                 max-width: <?php echo($px_size)?>px;
                 max-height: <?php echo($px_size)?>px;
