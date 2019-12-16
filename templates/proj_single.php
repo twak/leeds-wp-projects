@@ -18,6 +18,7 @@ if ( $external_url !== $permalink ) {
 
 get_header();
 
+
 if ( get_field( 'tk_profiles_page_settings_show_breadcrumb', 'option' ) ) {
 	// Custom title.
 	$profiles_page_title = ( get_field( 'tk_profiles_page_settings_title', 'option' ) ? : 'Profiles' );
@@ -32,6 +33,7 @@ if ( get_field( 'tk_profiles_page_settings_show_breadcrumb', 'option' ) ) {
 	</div>
 	<?php
 }
+
 if ( have_posts() ) {
 	while ( have_posts() ) {
 		the_post();

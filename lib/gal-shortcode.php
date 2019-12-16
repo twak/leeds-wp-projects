@@ -115,7 +115,7 @@ function gal_shortcode( $attr ) {
 
     $thumb_size = 'medium';
 
-    if (array_key_exists( 'size', $attr ) )
+    if (is_array($attr) and array_key_exists( 'size', $attr ) )
         $thumb_size = $attr['size'];
 
     $im_height =  get_all_image_sizes()[$thumb_size]['width']; //?? no defined heights
@@ -123,12 +123,10 @@ function gal_shortcode( $attr ) {
 //    print_r(get_all_image_sizes());
 
     $json ="";
+    if (is_array($attr))
     foreach ($attr as $key => $val){
         $json .= $key.": '".$val."',";
     }
-
-
-
 
     $output .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css\"/><link rel=\"stylesheet\" type=\"text/css\" href=\"https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css\"/>";
 
