@@ -98,23 +98,23 @@ function twak_inner_project()
 
     <!--        <div class="card-flat card-stacked-xs skin-bd-b skin-box-module">-->
 
-    <div class="row card-flat  skin-bd-b skin-box-module  " style="min-height:11em;">
-        <div>
-            <div class="col-sm-2">
+    <div class="row card-flat  skin-bd-b skin-box-module  " >
+        <div >
+            <div class="col-xs-6 col-sm-2 col-lg-1" style="padding-left:0px">
                 <a href="<?php echo esc_url($profile_link); ?>">
                     <?php
                     if (has_post_thumbnail()) {
                         // Check if Thumbnail exists.
                         ?>
                         <div>
-                            <img style="display: block; margin-left: auto; margin-right: auto; width=140em;" src='<?php the_post_thumbnail_url('sq512'); ?>'
+                            <img style="display: block; margin-left: auto; margin-right: auto;" src='<?php the_post_thumbnail_url('Medium'); ?>'
                                  alt='"<?php echo esc_attr($name); ?>"'/>
                         </div>
                         <?php
                     } else {
                         ?>
 
-                        <div style="max-height:10em">
+                        <div style="max-height:5em">
                             <div class="rs-img"></div>
                         </div>
 
@@ -124,14 +124,14 @@ function twak_inner_project()
                     ?>
                 </a>
             </div>
-            <div class="col-sm-8">
+            <div class="col-xs-6 col-sm-10">
                 <a href="<?php echo esc_url($profile_link); ?>">
-                    <h2 style="font-family: freight-display-pro; margin-top:0.5em"><?php the_title(); ?></h2>
+                    <h4 style="margin-top:0.5em"><?php the_title(); ?></h4>
 
                     <?php
                     $value = get_field('all_authors');
                     if ($value)
-                        echo('<h3 style="text-align: left">' . $value . '</h3>');
+                        echo('<p style="text-align: left">' . $value . '</p>');
                     ?>
                 </a>
             </div>
