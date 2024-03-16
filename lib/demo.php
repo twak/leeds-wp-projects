@@ -145,54 +145,52 @@ function demo_auto_grid($add, $px_size, $element, $speed, $page, $idle_time_sec)
                 var rows =  Math.floor( $( <?php echo ($element); ?> ).height() / <?php echo($px_size)?> ) +  <?php echo ($add); ?>; //here's your number of rows and columns
                 var cols =  Math.floor( $( <?php echo ($element); ?> ).width() / <?php echo($px_size)?> )+  <?php echo ($add); ?>;
                 var table = $('<table cellspacing="0" cellpadding="0"><tbody>');
-                window.coords = [];
+                window.coords<?php echo ($ele); ?> = [];
                 for(var r = 0; r < rows; r++)
                 {
                     var tr = $("<tr style='height:<?php echo($px_size)?>px'>");
                     for (var c = 0; c < cols; c++) {
-                        var id = 'x_' + c + '_y_' + r ;
-                        $('<td class="cell" id="' + id + '" ><a class="the_link" target="<?php echo ($add == 1 ? "iframe_a" : "_self"); ?>" href="/"><img class="demo-img" src="<?php get_site_url() ?>/wp-content/uploads/logo_blue.svg"/></a></td>').appendTo(tr);
+                        var id = 'x_' + c + '_y_' + r + "_<?php echo ($ele); ?>";
+                        $('<td class="cell<?php echo ($ele); ?>" id="' + id + '" ><a class="the_link" target="<?php echo ($add == 1 ? "iframe_a" : "_self"); ?>" href="/"><img class="demo-img<?php echo ($ele); ?>" src="<?php get_site_url() ?>/wp-content/uploads/logo_blue.svg"/></a></td>').appendTo(tr);
                         if (r != 0 || c != 0)
-                            window.coords.push(id);
+                            window.coords<?php echo ($ele); ?>.push(id);
                     }
                     tr.appendTo(table);
                 }
 
-                shuffleArray(window.coords);
+                shuffleArray(window.coords<?php echo ($ele); ?>);
                 table.appendTo ( $(<?php echo ($element); ?>)[0] );
-                window.current_coord = 0;
+                window.current_coord<?php echo ($ele); ?> = 0;
 
             }
 
-
-
             $( document ).ready(function() {
 
-                window.data_cache=[];
-                window.data_offset = 0;
-                window.data_complete = false;
-                window.current_datum = 0;
+                window.data_cache<?php echo ($ele); ?>=[];
+                window.data_offset<?php echo ($ele); ?> = 0;
+                window.data_complete<?php echo ($ele); ?> = false;
+                window.current_datum<?php echo ($ele); ?> = 0;
 
-                fetchData();
+                fetchData<?php echo ($ele); ?>();
                 build<?php echo ($ele); ?>();
 
-                window.idleTime = 0;
-                setInterval(timerIncrement, 1000); // 1 sec
+                window.idleTime<?php echo ($ele); ?> = 0;
+                setInterval(timerIncrement<?php echo ($ele); ?>, 1000); // 1 sec
                 $(this).mousemove(function (e) {
-                    window.idleTime = 0;
+                    window.idleTime<?php echo ($ele); ?> = 0;
                 });
                 $(this).keypress(function (e) {
-                    window.idleTime = 0;
+                    window.idleTime<?php echo ($ele); ?> = 0;
                 });
 
                 // window.idle_limit_sec = 60; // if the mouse isn't moved for this long, update webpage
-                window.update_limit_ms = <?php echo($page); ?>; // update the shared this often, upate webpage
+                window.update_limit_ms<?php echo ($ele); ?> = <?php echo($page); ?>; // update the shared this often, upate webpage
 
                 $(".the_link").attr('alt', "twak's logo" );
                 $(".the_link").attr('title', "twak" );
 
-                window.setInterval(fetchData, <?php echo($speed* 8); ?> )
-                window.setInterval(displayData, <?php echo($speed); ?>);
+                window.setInterval(fetchData<?php echo ($ele); ?>, <?php echo($speed* 8); ?> )
+                window.setInterval(displayData<?php echo ($ele); ?>, <?php echo($speed); ?>);
 
                 $(<?php echo ($element); ?>).resize(function() {
                     build<?php echo ($ele); ?>();
@@ -201,47 +199,47 @@ function demo_auto_grid($add, $px_size, $element, $speed, $page, $idle_time_sec)
 
             });
 
-            function timerIncrement() {
-                window.idleTime ++;
+            function timerIncrement<?php echo ($ele); ?>() {
+                window.idleTime<?php echo ($ele); ?> ++;
             }
 
-            function fetchData () {
+            function fetchData<?php echo ($ele); ?> () {
 
-                if (!window.data_complete)
+                if (!window.data_complete<?php echo ($ele); ?>)
                 $.ajax({
                     dataType: "json",
-                    //url: <?php get_site_url() ?>"/static/demo_cache_"+window.data_offset, // this line to read from the pre-cached results (for static deploy)
-                    url: <?php get_site_url() ?>"/wp-json/leeds-wp-projects/v1/demo?s="+window.data_offset, // this line to use and update live rest api
+                    //url: <?php get_site_url() ?>"/static/demo_cache_"+window.data_offset<?php echo ($ele); ?>, // this line to read from the pre-cached results (for static deploy)
+                    url: <?php get_site_url() ?>"/wp-json/leeds-wp-projects/v1/demo?s="+window.data_offset<?php echo ($ele); ?>, // this line to use and update live rest api
                     // data: data,
                     success: function(data) {
 
                         if (data.length === 0) {
-                            window.data_complete = true;
+                            window.data_complete<?php echo ($ele); ?> = true;
                             return;
                         }
 
                         shuffleArray(data);
 
-                        window.data_cache=window.data_cache.concat(data);
-                        window.data_offset += 100;
+                        window.data_cache<?php echo ($ele); ?>=window.data_cache<?php echo ($ele); ?>.concat(data);
+                        window.data_offset<?php echo ($ele); ?> += 100;
                         console.log(data);
                     }
                 });
             }
 
-            function displayData() {
+            function displayData<?php echo ($ele); ?>() {
 
-                    if (window.data_cache == undefined || window.data_cache.length == 0) {
+                    if (window.data_cache<?php echo ($ele); ?> == undefined || window.data_cache<?php echo ($ele); ?>.length == 0) {
                         console.log("waiting for first data");
                         return;
                     }
 
                     // items[Math.floor(Math.random()*items.length)]
-                    var item = $("#"+window.coords[window.current_coord]);
+                    var item = $("#"+window.coords<?php echo ($ele); ?>[window.current_coord<?php echo ($ele); ?>]);
 
                     if (!item.is(":hover") ) {
 
-                        var d = window.data_cache[window.current_datum];
+                        var d = window.data_cache<?php echo ($ele); ?>[window.current_datum<?php echo ($ele); ?>];
 
                         var img =$(item).find("img");
 
@@ -253,13 +251,13 @@ function demo_auto_grid($add, $px_size, $element, $speed, $page, $idle_time_sec)
 
                         <?php if ($add == 1) { ?>
 
-                            if (window.last_update == null )
+                            if (window.last_update<?php echo ($ele); ?> == null )
                             {
-                                window.last_update = new Date().getTime();
+                                window.last_update<?php echo ($ele); ?> = new Date().getTime();
                             }
-                            else if ( new Date().getTime() - window.last_update > window.update_limit_ms /*ms*/ && window.idleTime > <?php echo( $idle_time_sec ); ?> /* seconds */) {
+                            else if ( new Date().getTime() - window.last_update<?php echo ($ele); ?> > window.update_limit_ms<?php echo ($ele); ?> /*ms*/ && window.idleTime<?php echo ($ele); ?> > <?php echo( $idle_time_sec ); ?> /* seconds */) {
 
-                                window.last_update = new Date().getTime();
+                                window.last_update<?php echo ($ele); ?> = new Date().getTime();
 
                                 $('iframe').fadeOut(300,function(){
                                     $('iframe').attr('src', d['link'] ).on ("load", function(){
@@ -281,13 +279,13 @@ function demo_auto_grid($add, $px_size, $element, $speed, $page, $idle_time_sec)
                     }
 
 
-                window.current_coord = (window.current_coord + 1) % window.coords.length;
+                window.current_coord<?php echo ($ele); ?> = (window.current_coord<?php echo ($ele); ?> + 1) % window.coords<?php echo ($ele); ?>.length;
 
 
-                window.current_datum++;
-                if (window.current_datum >= window.data_cache.length) {
-                    // shuffleArray(window.data_cache);
-                    window.current_datum = window.current_datum % window.data_cache.length;
+                window.current_datum<?php echo ($ele); ?>++;
+                if (window.current_datum<?php echo ($ele); ?> >= window.data_cache<?php echo ($ele); ?>.length) {
+                    // shuffleArray(window.data_cache<?php echo ($ele); ?>);
+                    window.current_datum<?php echo ($ele); ?> = window.current_datum<?php echo ($ele); ?> % window.data_cache<?php echo ($ele); ?>.length;
                 }
             }
 
@@ -315,7 +313,7 @@ function demo_auto_grid($add, $px_size, $element, $speed, $page, $idle_time_sec)
                 overflow-y:hidden;
             }
 
-            .demo-img, .cms a>img, .jadu-cms a>img {
+            .demo-img<?php echo ($ele); ?>, .cms a>img, .jadu-cms a>img {
 	                    display: block;
                 max-width: <?php echo($px_size)?>px;
                 max-height: <?php echo($px_size)?>px;
@@ -334,7 +332,7 @@ function demo_auto_grid($add, $px_size, $element, $speed, $page, $idle_time_sec)
                 filter: brightness(120%);
             }
 
-            .cell {
+            .cell<?php echo ($ele); ?> {
                 background-color: white; /*  #51738c;*/
                 min-width: <?php echo($px_size)?>px;
                 min-height: <?php echo($px_size)?>px;
@@ -367,12 +365,12 @@ function demo_iframe($atts) {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <?php
 
-    demo_auto_grid(0, $px_size, "'.auto-grid'", 600, -1, -1);
+    demo_auto_grid(0, $px_size, "'.autogrid3'", 600, -1, -1);
 
     ?>
 
     <div>
-    <div style='width:100%; height:<?php echo($height) ?> ; overflow:hidden' class='auto-grid'> </div>
+    <div style='width:100%; height:<?php echo($height) ?> ; overflow:hidden' class='autogrid3'> </div>
     </div>
 <?php
 
