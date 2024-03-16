@@ -73,7 +73,7 @@ function demo($params) {
 
         <html>
         <head>
-            <title>demo</title>
+            <title>twak.org demo</title>
         </head>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <style>
@@ -81,6 +81,7 @@ function demo($params) {
             body {
                 margin:0;
                 overflow:hidden;
+                height: 100vh;
             }
 
         </style>
@@ -89,15 +90,15 @@ function demo($params) {
 
         <?php
 
-        $speed = 300;
+        $speed = 300; // how often to update the left hand side little picture links
         if (array_key_exists('speed', $_GET))
             $speed = (int) $_GET["speed" ];
 
-        $page = 4000;
+        $page = 4000; // how often to update the right hand side webpage
         if (array_key_exists('page', $_GET))
             $page = (int) $_GET["page" ];
 
-        $px = 256;
+        $px = 64; // size of little square pictures.
         if (array_key_exists('px', $_GET))
             $px = (int) $_GET["px"];
 
@@ -105,19 +106,19 @@ function demo($params) {
         if (array_key_exists('idle', $_GET))
             $idle = (int) $_GET["idle" ];
 
-        demo_auto_grid(1, $px, "window", $speed, $page, $idle );
+         demo_auto_grid(1, $px, "'.autogrid3'", $speed, $page, $idle );
     ?>
         <body>
 
 
-        <div style="    display: flex;     flex-direction: row;     flex-wrap: nowrap;     justify-content: center;     align-content: space-around;     align-items: stretch; overflow:hidden;">
-        <div class="auto-grid" style="flex: 1 0 66%; align-self: auto; overflow:hidden;">
+        <div style="height: 100vh;  display: flex;     flex-direction: row;     flex-wrap: nowrap;     justify-content: center;     align-content: space-around;     align-items: stretch; overflow:hidden;">
+        <div class="autogrid3" style="flex: 1 0 66%; align-self: auto; overflow:hidden;">
         </div>
 
         <?php if ($idle > 0) {  ?>
 
         <div style="flex: 3 0 34%; align-self: auto;">
-            <iframe scrolling="no" style="    position: relative;    height: 100%;     width: 100%; " frameBorder="0"src="" name="iframe_a"></iframe>
+            <iframe scrolling="no" style="    position: relative;    height: 100%;     width: 100%; " frameBorder="0"src="/" name="iframe_a"></iframe>
         </div>
             <?php }  ?>
         </div>
@@ -274,7 +275,7 @@ function demo_auto_grid($add, $px_size, $element, $speed, $page, $idle_time_sec)
                             $(img).dequeue();
                         });
 
-                        $(item).find("img").removeClass("jadu-cms");
+                        // $(item).find("img").removeClass("jadu-cms");
                         // $(item) .append($ ( "<a href='" +d['link']+ "'><img src='"+d['img']+"'/></a>") );
                     }
 
@@ -313,7 +314,7 @@ function demo_auto_grid($add, $px_size, $element, $speed, $page, $idle_time_sec)
                 overflow-y:hidden;
             }
 
-            .demo-img<?php echo ($ele); ?>, .cms a>img, .jadu-cms a>img {
+            .demo-img<?php echo ($ele); ?>, .cms a>img, a>img {
 	                    display: block;
                 max-width: <?php echo($px_size)?>px;
                 max-height: <?php echo($px_size)?>px;
@@ -324,7 +325,7 @@ function demo_auto_grid($add, $px_size, $element, $speed, $page, $idle_time_sec)
                 border: 0px;
             }
 
-            .cms a>img:hover, .jadu-cms a>img:hover {
+            .cms a>img:hover, a>img:hover {
                 border: none;
             }
 
