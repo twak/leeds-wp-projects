@@ -12,7 +12,7 @@ function twak_demo_info( $data ) {
         'post_type'  => 'any',
         'offset'     => $offset,
         'orderby'          => 'date',
-        'posts_per_page' => 10,
+        'posts_per_page' => 100,
         'meta_query' => array(
             array(
                 'key' => '_thumbnail_id',
@@ -22,6 +22,7 @@ function twak_demo_info( $data ) {
     ) );
 
     $out = [];
+    $domain = get_site_url();
 
     foreach ($posts as $post) {
 
@@ -31,10 +32,16 @@ function twak_demo_info( $data ) {
 
 
         array_push($out, array (
-            "name" => acf_get_post_title($post),
-            "img" => wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'sq512' )[0],
-            "link" =>  $link ) );
+            "name" => get_the_title($post),
+            "img" => str_replace($domain, "", wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'sq512' )[0] ),
+            "link" => str_replace($domain, "", $link) ) );
+            //"link" => str_replace($link, "127", "128") ) );
     }
+
+    $myfile = fopen(get_home_path()."static/demo_cache_".$offset, "w"); // for static site caching
+    fwrite($myfile, json_encode($out));
+    fclose($myfile);
+
 
     return $out;
 }
@@ -66,7 +73,7 @@ function demo($params) {
 
         <html>
         <head>
-            <title>VCG demo</title>
+            <title>demo</title>
         </head>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <style>
@@ -125,13 +132,15 @@ function demo($params) {
 }
 
 function demo_auto_grid($add, $px_size, $element, $speed, $page, $idle_time_sec) {
+    $ele = str_replace (".", "", $element); // js function name postfix
+    $ele = str_replace ("'", "", $ele);
     ?>
 
         <script>
 
-            function build() {
-                console.log($(".auto-grid")[0]);
-                $(".auto-grid").empty();
+            function build<?php echo ($ele); ?>() {
+                console.log($(<?php echo ($element); ?>)[0]);
+                $(<?php echo ($element); ?>).empty();
 
                 var rows =  Math.floor( $( <?php echo ($element); ?> ).height() / <?php echo($px_size)?> ) +  <?php echo ($add); ?>; //here's your number of rows and columns
                 var cols =  Math.floor( $( <?php echo ($element); ?> ).width() / <?php echo($px_size)?> )+  <?php echo ($add); ?>;
@@ -142,15 +151,15 @@ function demo_auto_grid($add, $px_size, $element, $speed, $page, $idle_time_sec)
                     var tr = $("<tr style='height:<?php echo($px_size)?>px'>");
                     for (var c = 0; c < cols; c++) {
                         var id = 'x_' + c + '_y_' + r ;
-                        $('<td class="cell" id="' + id + '" ><a class="the_link" target="<?php echo ($add == 1 ? "iframe_a" : "_self"); ?>" href="/"><img class="demo-img" src="<?php get_site_url() ?>/wp-content/plugins/leeds-wp-projects/resources/logo_blue.svg"/></a></td>').appendTo(tr);
-                        if (r != 1 || c != 1)
+                        $('<td class="cell" id="' + id + '" ><a class="the_link" target="<?php echo ($add == 1 ? "iframe_a" : "_self"); ?>" href="/"><img class="demo-img" src="<?php get_site_url() ?>/wp-content/uploads/logo_blue.svg"/></a></td>').appendTo(tr);
+                        if (r != 0 || c != 0)
                             window.coords.push(id);
                     }
                     tr.appendTo(table);
                 }
 
                 shuffleArray(window.coords);
-                table.appendTo ( $(".auto-grid")[0] );
+                table.appendTo ( $(<?php echo ($element); ?>)[0] );
                 window.current_coord = 0;
 
             }
@@ -165,7 +174,7 @@ function demo_auto_grid($add, $px_size, $element, $speed, $page, $idle_time_sec)
                 window.current_datum = 0;
 
                 fetchData();
-                build();
+                build<?php echo ($ele); ?>();
 
                 window.idleTime = 0;
                 setInterval(timerIncrement, 1000); // 1 sec
@@ -179,14 +188,14 @@ function demo_auto_grid($add, $px_size, $element, $speed, $page, $idle_time_sec)
                 // window.idle_limit_sec = 60; // if the mouse isn't moved for this long, update webpage
                 window.update_limit_ms = <?php echo($page); ?>; // update the shared this often, upate webpage
 
-                $(".the_link").attr('alt', "VCG" );
-                $(".the_link").attr('title', "VCG" );
+                $(".the_link").attr('alt', "twak's logo" );
+                $(".the_link").attr('title', "twak" );
 
                 window.setInterval(fetchData, <?php echo($speed* 8); ?> )
                 window.setInterval(displayData, <?php echo($speed); ?>);
 
                 $(<?php echo ($element); ?>).resize(function() {
-                    build();
+                    build<?php echo ($ele); ?>();
                 });
 
 
@@ -201,7 +210,8 @@ function demo_auto_grid($add, $px_size, $element, $speed, $page, $idle_time_sec)
                 if (!window.data_complete)
                 $.ajax({
                     dataType: "json",
-                    url: <?php get_site_url() ?>"/wp-json/leeds-wp-projects/v1/demo?s="+window.data_offset,
+                    //url: <?php get_site_url() ?>"/static/demo_cache_"+window.data_offset, // this line to read from the pre-cached results (for static deploy)
+                    url: <?php get_site_url() ?>"/wp-json/leeds-wp-projects/v1/demo?s="+window.data_offset, // this line to use and update live rest api
                     // data: data,
                     success: function(data) {
 
@@ -213,7 +223,7 @@ function demo_auto_grid($add, $px_size, $element, $speed, $page, $idle_time_sec)
                         shuffleArray(data);
 
                         window.data_cache=window.data_cache.concat(data);
-                        window.data_offset += 10;
+                        window.data_offset += 100;
                         console.log(data);
                     }
                 });
@@ -306,7 +316,7 @@ function demo_auto_grid($add, $px_size, $element, $speed, $page, $idle_time_sec)
             }
 
             .demo-img, .cms a>img, .jadu-cms a>img {
-                display: block;
+	                    display: block;
                 max-width: <?php echo($px_size)?>px;
                 max-height: <?php echo($px_size)?>px;
                 margin: auto;
