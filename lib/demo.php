@@ -106,7 +106,7 @@ function demo($params) {
         if (array_key_exists('idle', $_GET))
             $idle = (int) $_GET["idle" ];
 
-         demo_auto_grid(1, $px, "'.autogrid3'", $speed, $page, $idle );
+         demo_auto_grid(False, 1, $px, "'.autogrid3'", $speed, $page, $idle );
     ?>
         <body>
 
@@ -132,7 +132,7 @@ function demo($params) {
     }
 }
 
-function demo_auto_grid($add, $px_size, $element, $speed, $page, $idle_time_sec) {
+function demo_auto_grid($homepage, $add, $px_size, $element, $speed, $page, $idle_time_sec) {
     $ele = str_replace (".", "", $element); // js function name postfix
     $ele = str_replace ("'", "", $ele);
     ?>
@@ -146,20 +146,35 @@ function demo_auto_grid($add, $px_size, $element, $speed, $page, $idle_time_sec)
                 var rows =  Math.floor( $( <?php echo ($element); ?> ).height() / <?php echo($px_size)?> ) +  <?php echo ($add); ?>; //here's your number of rows and columns
                 var cols =  Math.floor( $( <?php echo ($element); ?> ).width() / <?php echo($px_size)?> )+  <?php echo ($add); ?>;
                 var table = $('<table cellspacing="0" cellpadding="0"><tbody>');
+                var homepage = <?php echo (var_export($homepage,true) ); ?>;
                 window.coords<?php echo ($ele); ?> = [];
                 for(var r = 0; r < rows; r++)
                 {
                     var tr = $("<tr style='height:<?php echo($px_size)?>px'>");
                     for (var c = 0; c < cols; c++) {
                         var id = 'x_' + c + '_y_' + r + "_<?php echo ($ele); ?>";
-                        $('<td class="cell<?php echo ($ele); ?>" id="' + id + '" ><a class="the_link" target="<?php echo ($add == 1 ? "iframe_a" : "_self"); ?>" href="/"><img class="demo-img<?php echo ($ele); ?>" src="<?php get_site_url() ?>/wp-content/uploads/logo_blue.svg"/></a></td>').appendTo(tr);
-                        if (r != 0 || c != 0)
+
+                        if (homepage && r == 0 && c == 0) {
+                            $('<td rowspan="2" colspan="3" class="" id="' + id + '" ><a class="the_link" target="<?php echo ($add == 1 ? "iframe_a" : "_self"); ?>" href="/"><img class="demo-logo-big<?php echo ($ele); ?>" src="<?php get_site_url() ?>/wp-content/uploads/full_logo.svg"/></a></td>').appendTo(tr);
+                        }
+                        else if (homepage && r <2 && c <3) {
+                            // nothing - row+colspan.
+                        }
+                        else {
+                            klazz = "demo-img<?php echo ($ele); ?>";
+                            cell = "cell-big<?php echo ($ele); ?>";
+//                             if (!homepage)
+                           src = "<?php get_site_url() ?>/wp-content/uploads/logo_blue.svg";
+//                             else
+//                             src = "<?php get_site_url() ?>/wp-content/uploads/px.png";
+                            $('<td class="'+cell+'" id="' + id + '" ><a class="the_link" target="<?php echo ($add == 1 ? "iframe_a" : "_self"); ?>" href="/"><img class="'+klazz +'" src="'+src+'"/></a></td>').appendTo(tr);
                             window.coords<?php echo ($ele); ?>.push(id);
+                        }
                     }
                     tr.appendTo(table);
                 }
 
-                shuffleArray(window.coords<?php echo ($ele); ?>);
+                shuffleArray(window.coords<?php echo ($ele);?>);
                 table.appendTo ( $(<?php echo ($element); ?>)[0] );
                 window.current_coord<?php echo ($ele); ?> = 0;
 
@@ -209,8 +224,8 @@ function demo_auto_grid($add, $px_size, $element, $speed, $page, $idle_time_sec)
                 if (!window.data_complete<?php echo ($ele); ?>)
                 $.ajax({
                     dataType: "json",
-                    //url: <?php get_site_url() ?>"/static/demo_cache_"+window.data_offset<?php echo ($ele); ?>, // this line to read from the pre-cached results (for static deploy)
-                    url: <?php get_site_url() ?>"/wp-json/leeds-wp-projects/v1/demo?s="+window.data_offset<?php echo ($ele); ?>, // this line to use and update live rest api
+                    url: <?php get_site_url() ?>"/static/demo_cache_"+window.data_offset<?php echo ($ele); ?>, // this line to read from the pre-cached results (for static deploy)
+                    // url: <?php get_site_url() ?>"/wp-json/leeds-wp-projects/v1/demo?s="+window.data_offset<?php echo ($ele); ?>, // this line to use live rest api (and write cache)
                     // data: data,
                     success: function(data) {
 
@@ -314,22 +329,29 @@ function demo_auto_grid($add, $px_size, $element, $speed, $page, $idle_time_sec)
                 overflow-y:hidden;
             }
 
-            .demo-img<?php echo ($ele); ?>, .cms a>img, a>img {
-	                    display: block;
+            .demo-img<?php echo ($ele); ?> {
+	            display: block;
                 max-width: <?php echo($px_size)?>px;
                 max-height: <?php echo($px_size)?>px;
-                margin: auto;
-                width: auto;
-                height: auto;
+                margin: 0px;
+                width: <?php echo($px_size)?>px;
+                //height: <?php echo($px_size)?>px;
                 padding: 0px;
                 border: 0px;
             }
 
-            .cms a>img:hover, a>img:hover {
-                border: none;
+            .demo-logo-big<?php echo ($ele); ?> {
+	            display: inline-block;
+	            position: relative;
+	            top: 0px; // <?php echo(-$px_size/2) ?>px
+                max-width: <?php echo($px_size)*3 ?>px;
+                max-height: <?php echo($px_size)*2 ?>px;
+                height: 100%;
+                padding: 0px;
+                border: 0px;
             }
 
-            img:hover {
+            .the_link>img:hover {
                 filter: brightness(120%);
             }
 
@@ -366,7 +388,7 @@ function demo_iframe($atts) {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <?php
 
-    demo_auto_grid(0, $px_size, "'.autogrid3'", 600, -1, -1);
+    demo_auto_grid(False, 0, $px_size, "'.autogrid3'", 600, -1, -1);
 
     ?>
 
